@@ -1,0 +1,11 @@
+.mapgrid {
+  .mapgrid-row {
+    display: flex;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    .tile {
+      display: inline-block;
+    }
+  }
+}

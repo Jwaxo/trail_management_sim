@@ -1,5 +1,8 @@
 @charset 'utf-8';
 
+@use "interface/interface.scss";
+@use "tiles/tiles.scss";
+
 .App {
   background-color: burlywood;
 }
