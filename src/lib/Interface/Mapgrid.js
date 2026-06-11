@@ -27,7 +27,7 @@ export default function Mapgrid() {
       // For now we put the next tile 1 higher, 1 lower, or equal to this tile.
       switch (Utilities.pickFromRange(3)) {
         case 0:
-          if (elevation > Config.map.sea_level) {
+          if (elevation > 0) {
             elevation--;
           }
           break;

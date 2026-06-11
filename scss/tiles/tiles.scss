@@ -7,7 +7,14 @@
   margin: 0;
   overflow: hidden;
   padding: 0;
+  position: relative;
   width: 40px;
+
+  > * {
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
 }
 
 .tile-soil {
@@ -15,15 +22,21 @@
   height: 100%;
   opacity: 1;
   width: 100%;
+  z-index: 2;
+  .tile--lowered & {
+    color: white;
+  }
 }
 
 .tile-elevation {
   height: 100%;
   width: 100%;
+  z-index: 1;
   .tile--raised & {
     background-color: white;
   }
   .tile--lowered & {
     background-color: black;
+    color: white;
   }
 }
