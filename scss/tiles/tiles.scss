@@ -1,6 +1,5 @@
 
 .tile {
-  background-color: lightgoldenrodyellow;
   border: 1px solid khaki;
   cursor: default;
   display: block;
@@ -9,4 +8,22 @@
   overflow: hidden;
   padding: 0;
   width: 40px;
+}
+
+.tile-soil {
+  background-color: lightgoldenrodyellow;
+  height: 100%;
+  opacity: 1;
+  width: 100%;
+}
+
+.tile-elevation {
+  height: 100%;
+  width: 100%;
+  .tile--raised & {
+    background-color: white;
+  }
+  .tile--lowered & {
+    background-color: black;
+  }
 }

@@ -1,25 +1,65 @@
+import Config from '../../Config';
+
+export default function Tile({x, y, elevations = [10,10,10,10]}) {
+  const id = `${x}x${y}`;
+  const nature = null;
+  const soil = null;
+  const amenities = [];
+  const trails = [];
+  const erotion = 0.0;
+  const overgrowth = 0.0;
+  const selected = false;
+
+  // Eventually we need to create individual tile shapes based on the results.
+  // For now assume all tiles are flat.
+
+  const slopeInfo = getSlope(elevations);
+
+  const classes = [
+    'tile',
+    'tile--shape-' + slopeInfo.shape,
+    'tile--' + (slopeInfo.lowest > Config.map.sea_level ? 'raised' : 'lowered'),
+  ].sort().join(' ').trim();
+
+  const soil_style = {
+    opacity: slopeInfo.lowest / (Config.map.max_height - Config.map.sea_level),
+  };
+
+  return (
+    <div className={ classes }>
+      <div className="tile-soil" style={ soil_style }></div>
+      <div className="tile-elevation"></div>
+    </div>
+  )
+}
 
 /**
+ * Analyze the elevations to determine what kind of slope we have, and which
+ * way it is facing.
  *
  * @param {Array(int)} elevations
  *
- * @returns {shape: Int, dir: Int, lowest: Int}
+ * Shapes:
+ * 0 = flat,
+ * 1 = straight slope,
+ * 2 = high corner (flat with one raised corner),
+ * 3 = low corner (flat with one low corner),
+ * 4 = diagonal slope.
+ * 5 = valley (two opposing corners high).
+ * Dirs:
+ * 0 = North (default)
+ * 1 = East
+ * 2 = South
+ * 3 = West
+ *
+ * @returns {
+ *  shape: Int,
+ *  dir: Int,
+ *  lowest: Int
+ * }
  */
 function getSlope(elevations) {
-  // Analyze the elevations to determine what kind of slope we have, and which
-  // way it is facing.
-  // Shapes:
-  // 0 = flat,
-  // 1 = straight slope,
-  // 2 = high corner (flat with one raised corner),
-  // 3 = low corner (flat with one low corner),
-  // 4 = diagonal slope.
-  // 5 = valley (two opposing corners high).
-  // Dirs:
-  // 0 = North (default)
-  // 1 = East
-  // 2 = South
-  // 3 = West
+
   let shape = 0;
   let dir = 0;
   let highest = 0;
@@ -113,29 +153,4 @@ function getSlope(elevations) {
   }
 
   return {shape, dir, lowest};
-}
-
-export default function Tile({x, y, elevations = [10,10,10,10]}) {
-  const id = `${x}x${y}`;
-  const nature = null;
-  const soil = null;
-  const amenities = [];
-  const trails = [];
-  const erotion = 0.0;
-  const overgrowth = 0.0;
-  const selected = false;
-
-  // Eventually we need to create individual tile shapes based on the results.
-  // For now assume all tiles are flat.
-
-  const slopeInfo = getSlope(elevations);
-
-  const classes = [
-    'tile',
-    'tile--shape-' + slopeInfo.shape,
-  ].sort().join(' ').trim();
-
-  return (
-    <div className={ classes }></div>
-  )
 }

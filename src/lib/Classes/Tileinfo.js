@@ -73,7 +73,7 @@ class Tileinfo {
 
   render() {
     return (
-      <Tile x={this.x} y={this.y} />
+      <Tile x={this.x} y={this.y} elevations={this.elevations} />
     );
   }
 
